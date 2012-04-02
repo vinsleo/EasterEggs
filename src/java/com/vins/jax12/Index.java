@@ -4,7 +4,13 @@
  */
 package com.vins.jax12;
 
+import com.vins.jax12.annotation.DefaultQualifier;
+import com.vins.jax12.business.Service;
+import com.vins.jax12.business.ServiceContract;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -14,7 +20,21 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class Index {
-    public String getMessage(){
-        return "Hello Vinay";
+
+    @Inject @DefaultQualifier(DefaultQualifier.Type.MyDefault)
+    ServiceContract service;
+    
+    @PostConstruct
+    public void init() {
+        System.out.println("init");
+    }
+
+    public String getMessage() {
+        return "Hello Vinay " + service.method();
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("init");
     }
 }
